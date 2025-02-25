@@ -9,7 +9,7 @@ from lectura_serie import lectura_Serie
 x_datos = []
 y_datos = []
 
-LECTURA_MAX = 685
+LECTURA_MAX = 705
 
 # Crear la figura y los ejes para la gráfica
 fig, ax = plt.subplots()
@@ -29,9 +29,12 @@ def actualizar(frame):
         y_datos.pop(0)
     
     # Añadir nuevos datos aleatorios dentro del rango del joystick
-    x,y,z = lectura_Serie()
-    x_datos.append(x)  # Sustituir con datos reales
-    y_datos.append(y)  # Sustituir con datos reales
+    resultado = lectura_Serie()
+    if resultado is not None:
+        x, y, z = resultado
+
+        x_datos.append(x)  # Sustituir con datos reales
+        y_datos.append(y)  # Sustituir con datos reales
     
     # Actualizar la posición de los puntos en el gráfico
     scatter.set_offsets(np.column_stack((x_datos, y_datos)))
@@ -50,5 +53,5 @@ def actualizar(frame):
     return scatter, linea
 
 # Configurar la animación para actualizar la gráfica periódicamente
-ani = animation.FuncAnimation(fig, actualizar, interval=100)
+ani = animation.FuncAnimation(fig, actualizar, interval=100, save_count=100)
 plt.show()  # Mostrar la gráfica
