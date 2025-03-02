@@ -1,6 +1,7 @@
 #include <Arduino.h>
 
-int xyzPins[] = {A1, A2, 10};
+
+int xyzPins[] = {13,12,14};
 void setup() {
      Serial.begin(9600);
      pinMode(xyzPins[2], INPUT_PULLUP);
